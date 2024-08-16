@@ -30,7 +30,7 @@ random.seed(2016)
 np.random.seed(2016)
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + '/'
-INPUT_PATH = ROOT_PATH + 'input/'
+INPUT_PATH = ROOT_PATH + 'input/micro/'
 OUTPUT_PATH = ROOT_PATH + 'modified_data/'
 if not os.path.isdir(OUTPUT_PATH):
     os.mkdir(OUTPUT_PATH)
