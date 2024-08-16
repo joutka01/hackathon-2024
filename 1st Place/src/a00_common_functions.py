@@ -52,7 +52,8 @@ if not os.path.isdir(SUBM_PATH):
 
 
 def save_in_file(arr, file_name):
-    pickle.dump(arr, gzip.open(file_name, 'wb+', compresslevel=3), protocol=4)
+    with gzip.open(file_name, 'wb+', compresslevel=3) as f:
+        pickle.dump(arr, f, protocol=4)
 
 
 def load_from_file(file_name):
