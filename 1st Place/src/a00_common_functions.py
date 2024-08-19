@@ -30,7 +30,7 @@ random.seed(2016)
 np.random.seed(2016)
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + '/'
-INPUT_PATH = ROOT_PATH + 'input/'
+INPUT_PATH = ROOT_PATH + 'input/micro/'
 OUTPUT_PATH = ROOT_PATH + 'modified_data/'
 if not os.path.isdir(OUTPUT_PATH):
     os.mkdir(OUTPUT_PATH)
@@ -52,7 +52,8 @@ if not os.path.isdir(SUBM_PATH):
 
 
 def save_in_file(arr, file_name):
-    pickle.dump(arr, gzip.open(file_name, 'wb+', compresslevel=3), protocol=4)
+    with gzip.open(file_name, 'wb+', compresslevel=3) as f:
+        pickle.dump(arr, f, protocol=4)
 
 
 def load_from_file(file_name):

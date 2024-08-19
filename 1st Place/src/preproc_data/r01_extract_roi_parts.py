@@ -15,7 +15,7 @@ def extract_roi_parts(type):
     if not os.path.isdir(out_path):
         os.mkdir(out_path)
 
-    files = glob.glob(INPUT_PATH + '{}/*.mp4'.format(type))
+    files = glob.glob(INPUT_PATH + '*.mp4'.format(type))
     print(len(files))
     res = dict()
     frames_in_video = []
