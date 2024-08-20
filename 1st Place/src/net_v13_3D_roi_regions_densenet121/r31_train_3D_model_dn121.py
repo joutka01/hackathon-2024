@@ -15,9 +15,10 @@ if __name__ == '__main__':
 
 from a00_common_functions import *
 from multiprocessing.pool import ThreadPool
+import tensorflow as tf
 from volumentations import *
 from functools import partial
-from tf_keras import backend as K
+from tensorflow.keras import backend as K
 from net_v13_3D_roi_regions_densenet121.a01_validation_callback import ModelCheckpoint_Stat
 from net_v13_3D_roi_regions_densenet121.a03_models_3D_pretrained import *
 
@@ -145,10 +146,10 @@ def read_validation(fold_num, preproc_input, verbose=False):
 
 def train_single_model(fold_number):
     global IMG_CACHE, MASKS
-    from tf_keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
-    from tf_keras.optimizers import Adam, SGD
+    from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
+    from tensorflow.keras.optimizers import Adam, SGD
     from a01_adam_accumulate import AdamAccumulate
-    from tf_keras.models import load_model, Model
+    from tensorflow.keras.models import load_model, Model
 
     print('Go fold: {}'.format(fold_number))
     model_name = 'D121_3D'

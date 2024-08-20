@@ -85,7 +85,7 @@ def get_stalled_dict():
 
 
 def valid_model_heatmap(model_list, preproc_input):
-    from tf_keras.models import Model
+    from tensorflow.keras.models import Model
     start_time = time.time()
     s = pd.read_csv(KFOLD_SPLIT_FILE)
 
@@ -478,9 +478,9 @@ def create_heatmap_for_multi_cube_and_pred(inp_data, stalled_dict):
 
 
 if __name__ == '__main__':
-    from tf_keras.models import load_model
+    from tensorflow.keras.models import load_model
     from kito import reduce_keras_model
-    from tf_keras.backend import clear_session
+    from tensorflow.keras.backend import clear_session
     start_time = time.time()
 
     stalled_dict = get_stalled_dict()

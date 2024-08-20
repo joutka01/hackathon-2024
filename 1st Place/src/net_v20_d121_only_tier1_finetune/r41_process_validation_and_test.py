@@ -200,9 +200,9 @@ def proc_test(merged_model, out_feat_file, preproc_input):
 
 
 if __name__ == '__main__':
-    from tf_keras.models import load_model
+    from tensorflow.keras.models import load_model
     from kito import reduce_keras_model
-    from tf_keras.backend import clear_session
+    from tensorflow.keras.backend import clear_session
     start_time = time.time()
     merge_avg = False
 

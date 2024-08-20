@@ -20,7 +20,7 @@ from __future__ import print_function
 
 import os
 from .. import get_submodules_from_kwargs
-from tf_keras.applications import imagenet_utils
+from tensorflow.keras.applications import imagenet_utils
 
 
 BASE_WEIGHT_URL = ('https://github.com/fchollet/deep-learning-models/'

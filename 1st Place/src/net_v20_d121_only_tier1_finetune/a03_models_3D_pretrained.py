@@ -20,8 +20,8 @@ def Model_3D_pretrained_densenet121(
         out_channels=1,
         use_imagenet=True,
 ):
-    from tf_keras.models import Model, load_model
-    from tf_keras.layers import Dense, Input, GlobalAveragePooling3D, Dropout
+    from tensorflow.keras.models import Model, load_model
+    from tensorflow.keras.layers import Dense, Input, GlobalAveragePooling3D, Dropout
     from classification_models_3D.keras import Classifiers
 
     type = 'densenet121'
