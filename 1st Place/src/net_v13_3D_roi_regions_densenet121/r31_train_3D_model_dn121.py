@@ -4,11 +4,13 @@ __author__ = 'ZFTurbo: https://www.drivendata.org/users/ZFTurbo/'
 
 if __name__ == '__main__':
     import os
+    import tensorflow as tf
 
     gpu_use = 0
     print('GPU use: {}'.format(gpu_use))
     os.environ["KERAS_BACKEND"] = "tensorflow"
     os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(gpu_use)
+    print(f"TensorFlow has access to the following devices:\n{tf.config.list_physical_devices()}")
 
 
 from a00_common_functions import *

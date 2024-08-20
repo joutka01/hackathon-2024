@@ -33,8 +33,10 @@ def Model_3D_pretrained_densenet121(
                          weights=None,
                          input_shape=input_shape,
                          pooling='avg', )
-    if use_imagenet:
-        model_upd.load_weights(MODELS_PATH + 'converter/{}_inp_channel_3.h5'.format(type))
+    # https://datascience.stackexchange.com/questions/56087/why-do-people-import-weights-for-densenet-when-keras-includes-them 
+    # we can just try with weights=imagenet instead of downloading all the weights
+    #if use_imagenet:
+    #    model_upd.load_weights(MODELS_PATH + 'converter/{}_inp_channel_3.h5'.format(type))
     x = model_upd.layers[-1].output
     # x = GlobalAveragePooling3D()(x)
     x = Dense(512, activation='sigmoid', name='classification')(x)

@@ -79,7 +79,7 @@ def transition_block(x, reduction, name):
     x = layers.BatchNormalization(axis=bn_axis, epsilon=1.001e-5,
                                   name=name + '_bn')(x)
     x = layers.Activation('relu', name=name + '_relu')(x)
-    x = layers.Conv3D(int(backend.int_shape(x)[bn_axis] * reduction), 1,
+    x = layers.Conv3D(int(x.shape[bn_axis] * reduction), 1,
                       use_bias=False,
                       name=name + '_conv')(x)
     x = layers.AveragePooling3D(2, strides=2, name=name + '_pool')(x)
@@ -193,10 +193,10 @@ def DenseNet(blocks,
     bn_axis = 4 if backend.image_data_format() == 'channels_last' else 1
 
     x = layers.ZeroPadding3D(padding=((3, 3), (3, 3), (3, 3)))(img_input)
-    x = layers.Conv3D(64, 7, strides=2, use_bias=False, name='conv1/conv')(x)
+    x = layers.Conv3D(64, 7, strides=2, use_bias=False, name='conv1-conv')(x)
     x = layers.BatchNormalization(
-        axis=bn_axis, epsilon=1.001e-5, name='conv1/bn')(x)
-    x = layers.Activation('relu', name='conv1/relu')(x)
+        axis=bn_axis, epsilon=1.001e-5, name='conv1-bn')(x)
+    x = layers.Activation('relu', name='conv1-relu')(x)
     x = layers.ZeroPadding3D(padding=((1, 1), (1, 1), (1, 1)))(x)
     x = layers.MaxPooling3D(3, strides=2, name='pool1')(x)
 
@@ -239,7 +239,7 @@ def DenseNet(blocks,
         model = models.Model(inputs, x, name='densenet')
 
     # Load weights.
-    if weights == 'imagenet':
+    '''if weights == 'imagenet':
         if include_top:
             if blocks == [6, 12, 24, 16]:
                 weights_path = keras_utils.get_file(
@@ -281,6 +281,7 @@ def DenseNet(blocks,
         model.load_weights(weights_path)
     elif weights is not None:
         model.load_weights(weights)
+    '''
 
     return model
 

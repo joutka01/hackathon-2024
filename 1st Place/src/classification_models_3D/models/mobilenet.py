@@ -78,7 +78,7 @@ def depthwise_conv3d_args_preprocessor(args, kwargs):
         kwargs['depthwise_initializer'] = init
         converted.append(('init', 'depthwise_initializer'))
 
-    args, kwargs, _converted = conv3d_args_preprocessor(args, kwargs)
+    args, kwargs, _converted = K.conv3d_args_preprocessor(args, kwargs)
     return args, kwargs, converted + _converted
 
     # unreachable code
@@ -208,7 +208,7 @@ class DepthwiseConv3D(Conv3D):
         self.depthwise_constraint = constraints.get(depthwise_constraint)
         self.bias_initializer = initializers.get(bias_initializer)
         self.dilation_rate = dilation_rate
-        self._padding = _preprocess_padding(self.padding)
+        self._padding = K._preprocess_padding(self.padding)
         self._strides = (1,) + self.strides + (1,)
         self._data_format = "NDHWC"
         self.input_dim = None
@@ -262,7 +262,7 @@ class DepthwiseConv3D(Conv3D):
         self.built = True
 
     def call(self, inputs, training=None):
-        inputs = _preprocess_conv3d_input(inputs, self.data_format)
+        inputs = K._preprocess_conv3d_input(inputs, self.data_format)
 
         if self.data_format == 'channels_last':
             dilation = (1,) + self.dilation_rate + (1,)
