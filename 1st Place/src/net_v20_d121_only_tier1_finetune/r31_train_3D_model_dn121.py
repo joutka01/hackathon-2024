@@ -209,8 +209,7 @@ def train_single_model(fold_number, init_weights):
 
     gen_train = batch_generator_train(fold_number, batch_size_train, preproc_input, augment=True)
     # gen_valid = batch_generator_train(valid_files, valid_answ, batch_size_valid, preproc_input, augment=False)
-    history = model.fit_generator(generator=gen_train,
-                                  epochs=epochs,
+    history = model.fit(epochs=epochs,
                                   steps_per_epoch=steps_per_epoch,
                                   # validation_data=gen_valid,
                                   # validation_steps=validation_steps,

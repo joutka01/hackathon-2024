@@ -339,7 +339,7 @@ def preprocess_input(x, data_format=None, **kwargs):
         Preprocessed array.
     """
     return imagenet_utils.preprocess_input(x, data_format,
-                                           mode='torch', **kwargs)
+                                           mode='torch')
 
 
 setattr(DenseNet121, '__doc__', DenseNet.__doc__)
