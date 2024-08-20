@@ -46,7 +46,8 @@ def gen_kfold_split_large(num_folds=5, random_state=42):
 
 
 def check_kfold_split():
-    s = pd.read_csv(OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv')
+    s = pd.read_csv(OUTPUT_PATH + 'kfold_split_5_42.csv')
+    # s = pd.read_csv(OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv')
     for i in range(5):
         part = s[s['fold'] == i].copy()
         print(len(part))
@@ -54,6 +55,6 @@ def check_kfold_split():
 
 
 if __name__ == '__main__':
-    # gen_kfold_split(num_folds=5, random_state=42)
-    gen_kfold_split_large(num_folds=5, random_state=42)
+    gen_kfold_split(num_folds=5, random_state=42)
+    # gen_kfold_split_large(num_folds=5, random_state=42)
     check_kfold_split()
