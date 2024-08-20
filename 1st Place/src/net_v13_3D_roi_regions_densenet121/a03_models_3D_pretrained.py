@@ -12,12 +12,9 @@ if __name__ == '__main__':
 
 
 from a00_common_functions import *
-from keras.models import Model
-from keras.layers import Input, Conv3D, MaxPooling3D, UpSampling3D
-from keras.layers.normalization import BatchNormalization
-from keras.layers.core import SpatialDropout3D, Activation
-from keras import backend as K
-from keras.layers.merge import concatenate
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import BatchNormalization, SpatialDropout3D, Activation, Concatenate, Input, Conv3D, MaxPooling3D, UpSampling3D
+from tensorflow.keras import backend as K
 
 
 def Model_3D_pretrained_densenet121(
@@ -26,8 +23,8 @@ def Model_3D_pretrained_densenet121(
         out_channels=1,
         use_imagenet=True,
 ):
-    from keras.models import Model, load_model
-    from keras.layers import Dense, Input, GlobalAveragePooling3D, Dropout
+    from tensorflow.keras.models import Model, load_model
+    from tensorflow.keras.layers import Dense, Input, GlobalAveragePooling3D, Dropout
     from classification_models_3D.keras import Classifiers
 
     type = 'densenet121'

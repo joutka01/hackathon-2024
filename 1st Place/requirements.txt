@@ -5,13 +5,11 @@ scipy==1.14.0
 tensorboard==2.17.1
 tensorflow-estimator==2.15.0
 numpy
-keras==3.5.0
-keras-applications==1.0.8
-keras-preprocessing==1.1.2
 albumentations>=0.4.3
 kito==1.0.5
 catboost==1.2.5
 xgboost==2.1.1
 tensorflow==2.17.0
+tf-keras==2.17.0
 lightgbm==4.5.0
 tqdm

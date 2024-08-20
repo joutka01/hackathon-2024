@@ -18,9 +18,7 @@ from __future__ import print_function
 
 import os
 from .. import get_submodules_from_kwargs
-from keras_applications import imagenet_utils
-from keras_applications.imagenet_utils import decode_predictions
-from keras_applications.imagenet_utils import _obtain_input_shape
+from tensorflow.keras.applications import imagenet_utils
 
 
 BASE_WEIGTHS_PATH = (

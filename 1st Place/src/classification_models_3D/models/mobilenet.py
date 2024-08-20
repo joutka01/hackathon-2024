@@ -57,19 +57,18 @@ from __future__ import division
 import os
 import warnings
 from .. import get_submodules_from_kwargs
-from keras_applications import imagenet_utils
-from keras import backend as K
-from keras import initializers
-from keras import regularizers
-from keras import constraints
-from keras import layers
-from keras.engine import InputSpec
-from keras.utils import conv_utils
-from keras.legacy.interfaces import conv3d_args_preprocessor, generate_legacy_interface
-from keras.layers import Conv3D
-from keras.backend.tensorflow_backend import _preprocess_padding, _preprocess_conv3d_input
-
 import tensorflow as tf
+from tensorflow.keras.applications import imagenet_utils
+from tensorflow.keras import backend as K
+from tensorflow.keras import initializers
+from tensorflow.keras import regularizers
+from tensorflow.keras import constraints
+from tensorflow.keras import layers
+import tensorflow.keras.utils as conv_utils
+#from keras.legacy.interfaces import conv3d_args_preprocessor, generate_legacy_interface
+from tensorflow.keras.layers import Conv3D, InputSpec
+from tensorflow.python.keras.backend import _preprocess_padding, _preprocess_conv3d_input
+
 
 
 def depthwise_conv3d_args_preprocessor(args, kwargs):
@@ -83,7 +82,8 @@ def depthwise_conv3d_args_preprocessor(args, kwargs):
     args, kwargs, _converted = conv3d_args_preprocessor(args, kwargs)
     return args, kwargs, converted + _converted
 
-    legacy_depthwise_conv3d_support = generate_legacy_interface(
+    # unreachable code
+    '''legacy_depthwise_conv3d_support = generate_legacy_interface(
     allowed_positional_args=['filters', 'kernel_size'],
     conversions=[('nb_filter', 'filters'),
                  ('subsample', 'strides'),
@@ -95,7 +95,7 @@ def depthwise_conv3d_args_preprocessor(args, kwargs):
     value_conversions={'dim_ordering': {'tf': 'channels_last',
                                         'th': 'channels_first',
                                         'default': None}},
-    preprocessor=depthwise_conv3d_args_preprocessor)
+    preprocessor=depthwise_conv3d_args_preprocessor)'''
 
 # Implementation: https://github.com/alexandrosstergiou/keras-DepthwiseConv3D
 

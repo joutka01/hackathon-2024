@@ -15,7 +15,7 @@ from a00_common_functions import *
 from multiprocessing.pool import ThreadPool
 from volumentations import *
 from functools import partial
-import keras.backend as K
+from tensorflow.keras import backend as K
 from net_v20_d121_only_tier1_finetune.a01_validation_callback import ModelCheckpoint_Stat
 from net_v20_d121_only_tier1_finetune.a03_models_3D_pretrained import *
 
@@ -139,10 +139,10 @@ def read_validation(fold_num, preproc_input, verbose=False):
 
 def train_single_model(fold_number, init_weights):
     global IMG_CACHE, MASKS
-    from keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
-    from keras.optimizers import Adam, SGD
+    from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
+    from tensorflow.keras.optimizers import Adam, SGD
     from a01_adam_accumulate import AdamAccumulate
-    from keras.models import load_model, Model
+    from tensorflow.keras.models import load_model, Model
 
     print('Go fold: {}'.format(fold_number))
     model_name = 'D121_FT'

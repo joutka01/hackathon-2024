@@ -15,7 +15,7 @@ from a00_common_functions import *
 from multiprocessing.pool import ThreadPool
 from volumentations import *
 from functools import partial
-import keras.backend as K
+from tensorflow.keras import backend as K
 from net_v13_3D_roi_regions_densenet121.a01_validation_callback import ModelCheckpoint_Stat
 from net_v13_3D_roi_regions_densenet121.a03_models_3D_pretrained import *
 
@@ -26,7 +26,8 @@ THREADS = 4
 SHAPE_SIZE = (96, 128, 128, 3)
 KFOLD_NUMBER = 5
 FOLD_LIST = [0, 1, 2, 3, 4]
-KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv'
+KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_v2_5_42.csv'
+#KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv'
 DIR_PREFIX = os.path.basename(os.path.dirname(__file__)) + '_' + os.path.basename(__file__)
 MODELS_PATH_KERAS = MODELS_PATH + DIR_PREFIX + '_' + os.path.basename(KFOLD_SPLIT_FILE)[:-4] + '/'
 if not os.path.isdir(MODELS_PATH_KERAS):
@@ -142,10 +143,10 @@ def read_validation(fold_num, preproc_input, verbose=False):
 
 def train_single_model(fold_number):
     global IMG_CACHE, MASKS
-    from keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
-    from keras.optimizers import Adam, SGD
+    from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
+    from tensorflow.keras.optimizers import Adam, SGD
     from a01_adam_accumulate import AdamAccumulate
-    from keras.models import load_model, Model
+    from tensorflow.keras.models import load_model, Model
 
     print('Go fold: {}'.format(fold_number))
     model_name = 'D121_3D'
