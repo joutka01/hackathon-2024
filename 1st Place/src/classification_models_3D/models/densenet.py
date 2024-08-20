@@ -18,8 +18,7 @@ from __future__ import print_function
 
 import os
 from .. import get_submodules_from_kwargs
-from tensorflow.keras.applications import imagenet_utils
-
+from tf_keras.applications import imagenet_utils
 
 BASE_WEIGTHS_PATH = (
     'https://github.com/keras-team/keras-applications/'

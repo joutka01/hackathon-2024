@@ -1,5 +1,5 @@
 import functools
-from tensorflow.keras import applications as ka 
+from tf_keras import applications as ka 
 
 from .models import resnet as rn
 from .models import resnext as rx

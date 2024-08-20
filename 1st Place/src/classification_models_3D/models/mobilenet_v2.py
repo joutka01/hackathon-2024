@@ -79,7 +79,7 @@ from __future__ import division
 import os
 import warnings
 from .. import get_submodules_from_kwargs
-from tensorflow.keras.applications import imagenet_utils
+from tf_keras.applications import imagenet_utils
 
 # TODO Change path to v1.1
 BASE_WEIGHT_PATH = ('https://github.com/JonathanCMitchell/mobilenet_v2_keras/'
@@ -91,17 +91,18 @@ models = None
 keras_utils = None
 
 import tensorflow as tf
-from tensorflow.keras import backend as K
-from tensorflow.keras import initializers
-from tensorflow.keras import regularizers
-from tensorflow.keras import constraints
-from tensorflow.keras import layers
-import tensorflow.keras.utils as conv_utils
+from tf_keras import backend as K
+from tf_keras import initializers
+from tf_keras import regularizers
+from tf_keras import constraints
+from tf_keras import layers
+import tf_keras.utils as conv_utils
 #from keras.legacy.interfaces import conv3d_args_preprocessor, generate_legacy_interface
-from tensorflow.keras.layers import Conv3D, InputSpec
-from tensorflow.python.keras.backend import _preprocess_padding, _preprocess_conv3d_input
+from tf_keras.layers import Conv3D, InputSpec
 
 import tensorflow as tf
+#import _preprocess_padding, _preprocess_conv3d_input
+
 
 def depthwise_conv3d_args_preprocessor(args, kwargs):
     converted = []
@@ -240,7 +241,7 @@ class DepthwiseConv3D(Conv3D):
         self.depthwise_constraint = constraints.get(depthwise_constraint)
         self.bias_initializer = initializers.get(bias_initializer)
         self.dilation_rate = dilation_rate
-        self._padding = _preprocess_padding(self.padding)
+        self._padding = K._preprocess_padding(self.padding)
         self._strides = (1,) + self.strides + (1,)
         self._data_format = "NDHWC"
         self.input_dim = None
@@ -294,7 +295,7 @@ class DepthwiseConv3D(Conv3D):
         self.built = True
 
     def call(self, inputs, training=None):
-        inputs = _preprocess_conv3d_input(inputs, self.data_format)
+        inputs = K._preprocess_conv3d_input(inputs, self.data_format)
 
         if self.data_format == 'channels_last':
             dilation = (1,) + self.dilation_rate + (1,)

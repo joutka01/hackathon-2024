@@ -1,7 +1,6 @@
 #from keras.legacy import interfaces
-from tensorflow.keras.optimizers import Optimizer
-from tensorflow.keras import backend as K
-import tensorflow as tf
+from tf_keras.optimizers import Optimizer
+from tf_keras import backend as K
 
 
 class AdamAccumulate_v1(Optimizer):

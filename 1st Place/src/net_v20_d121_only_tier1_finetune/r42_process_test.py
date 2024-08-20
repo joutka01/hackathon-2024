@@ -108,9 +108,9 @@ def proc_test(merged_model, out_feat_file, preproc_input, thr):
 
 
 if __name__ == '__main__':
-    from tensorflow.keras.models import load_model
+    from tf_keras.models import load_model
     from kito import reduce_keras_model
-    from tensorflow.keras.backend import clear_session
+    from tf_keras.backend import clear_session
     start_time = time.time()
     merge_avg = False
     thr_for_mcc = 0.7
