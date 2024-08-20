@@ -29,7 +29,7 @@ THREADS = 4
 SHAPE_SIZE = (96, 128, 128, 3)
 KFOLD_NUMBER = 5
 FOLD_LIST = [0, 1, 2, 3, 4]
-KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_v2_5_42.csv'
+KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_5_42.csv'
 #KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv'
 DIR_PREFIX = os.path.basename(os.path.dirname(__file__)) + '_' + os.path.basename(__file__)
 MODELS_PATH_KERAS = MODELS_PATH + DIR_PREFIX + '_' + os.path.basename(KFOLD_SPLIT_FILE)[:-4] + '/'
@@ -155,7 +155,8 @@ def train_single_model(fold_number):
     model_name = 'D121_3D'
     patience = 15
     epochs = 150
-    optim_type = 'Adam'
+    #optim_type = 'Adam'
+    optim_type = 'SGD'
     learning_rate = 1e-04
     dropout = 0.5
     cnn_type = '{}_optim_{}_drop_{}'.format(model_name, optim_type, dropout)
@@ -167,7 +168,7 @@ def train_single_model(fold_number):
     model, preproc_input = Model_3D_pretrained_densenet121(input_shape=SHAPE_SIZE, dropout_val=dropout, out_channels=1)
 
     if optim_type == 'SGD':
-        optim = SGD(lr=learning_rate, decay=1e-6, momentum=0.9, nesterov=True)
+        optim = SGD(learning_rate=learning_rate, momentum=0.9, nesterov=True)
     else:
         optim = AdamAccumulate(lr=learning_rate, accum_iters=20)
 

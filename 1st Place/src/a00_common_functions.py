@@ -120,7 +120,7 @@ def get_model_memory_usage(batch_size, model):
         if layer_type == 'Model':
             internal_model_mem_count += get_model_memory_usage(batch_size, l)
         single_layer_mem = 1
-        out_shape = l.output_shape
+        out_shape = l.output.shape
         if type(out_shape) is list:
             out_shape = out_shape[0]
         for s in out_shape:
