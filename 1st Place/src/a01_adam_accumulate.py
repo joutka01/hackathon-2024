@@ -1,7 +1,6 @@
-from keras.legacy import interfaces
-from keras.optimizers import Optimizer
-from keras import backend as K
-import tensorflow as tf
+#from keras.legacy import interfaces
+from tensorflow.keras.optimizers import Optimizer
+from tensorflow.keras import backend as K
 
 
 class AdamAccumulate_v1(Optimizer):
@@ -23,6 +22,7 @@ class AdamAccumulate_v1(Optimizer):
         self.amsgrad = amsgrad
         self.accum_iters = K.variable(accum_iters, dtype='int64')
 
+    '''
     @interfaces.legacy_get_updates_support
     def get_updates(self, loss, params):
         grads = self.get_gradients(loss, params)
@@ -78,8 +78,9 @@ class AdamAccumulate_v1(Optimizer):
             if getattr(p, 'constraint', None) is not None:
                 new_p = p.constraint(new_p)
 
-            self.updates.append(K.update(p, new_p))
+            self.updates.append(K.update(p, new_p))*/
         return self.updates
+    '''
 
     def get_config(self):
         config = {'lr': float(K.get_value(self.lr)),
@@ -112,6 +113,7 @@ class AdamAccumulate(Optimizer):
         self.accum_iters = K.variable(accum_iters, K.dtype(self.iterations))
         self.accum_iters_float = K.cast(self.accum_iters, K.floatx())
 
+    '''
     @interfaces.legacy_get_updates_support
     def get_updates(self, loss, params):
         grads = self.get_gradients(loss, params)
@@ -172,6 +174,7 @@ class AdamAccumulate(Optimizer):
 
             self.updates.append(K.update(p, (1 - update_switch) * p + update_switch * new_p))
         return self.updates
+        '''
 
     def get_config(self):
         config = {'lr': float(K.get_value(self.lr)),

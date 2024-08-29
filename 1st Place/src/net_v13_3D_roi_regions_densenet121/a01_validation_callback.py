@@ -5,7 +5,7 @@ __author__ = 'ZFTurbo: https://www.drivendata.org/users/ZFTurbo/'
 from a00_common_functions import *
 import warnings
 import shutil
-from keras.callbacks import Callback
+from tensorflow.keras.callbacks import Callback
 from sklearn.preprocessing import minmax_scale
 from sklearn.metrics import matthews_corrcoef, roc_auc_score, accuracy_score
 

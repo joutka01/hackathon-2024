@@ -2,3 +2,5 @@ __pycache__/
 input/* 
 .DS_Store
 modified_data/*
+venv/
+models/

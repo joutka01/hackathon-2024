@@ -4,18 +4,21 @@ __author__ = 'ZFTurbo: https://www.drivendata.org/users/ZFTurbo/'
 
 if __name__ == '__main__':
     import os
+    import tensorflow as tf
 
     gpu_use = 0
     print('GPU use: {}'.format(gpu_use))
     os.environ["KERAS_BACKEND"] = "tensorflow"
     os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(gpu_use)
+    print(f"TensorFlow has access to the following devices:\n{tf.config.list_physical_devices()}")
 
 
 from a00_common_functions import *
 from multiprocessing.pool import ThreadPool
+import tensorflow as tf
 from volumentations import *
 from functools import partial
-import keras.backend as K
+from tensorflow.keras import backend as K
 from net_v13_3D_roi_regions_densenet121.a01_validation_callback import ModelCheckpoint_Stat
 from net_v13_3D_roi_regions_densenet121.a03_models_3D_pretrained import *
 
@@ -26,7 +29,8 @@ THREADS = 4
 SHAPE_SIZE = (96, 128, 128, 3)
 KFOLD_NUMBER = 5
 FOLD_LIST = [0, 1, 2, 3, 4]
-KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv'
+KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_5_42.csv'
+#KFOLD_SPLIT_FILE = OUTPUT_PATH + 'kfold_split_large_v2_5_42.csv'
 DIR_PREFIX = os.path.basename(os.path.dirname(__file__)) + '_' + os.path.basename(__file__)
 MODELS_PATH_KERAS = MODELS_PATH + DIR_PREFIX + '_' + os.path.basename(KFOLD_SPLIT_FILE)[:-4] + '/'
 if not os.path.isdir(MODELS_PATH_KERAS):
@@ -142,16 +146,17 @@ def read_validation(fold_num, preproc_input, verbose=False):
 
 def train_single_model(fold_number):
     global IMG_CACHE, MASKS
-    from keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
-    from keras.optimizers import Adam, SGD
+    from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, CSVLogger, ReduceLROnPlateau, LearningRateScheduler
+    from tensorflow.keras.optimizers import Adam, SGD
     from a01_adam_accumulate import AdamAccumulate
-    from keras.models import load_model, Model
+    from tensorflow.keras.models import load_model, Model
 
     print('Go fold: {}'.format(fold_number))
     model_name = 'D121_3D'
     patience = 15
     epochs = 150
-    optim_type = 'Adam'
+    #optim_type = 'Adam'
+    optim_type = 'SGD'
     learning_rate = 1e-04
     dropout = 0.5
     cnn_type = '{}_optim_{}_drop_{}'.format(model_name, optim_type, dropout)
@@ -163,7 +168,7 @@ def train_single_model(fold_number):
     model, preproc_input = Model_3D_pretrained_densenet121(input_shape=SHAPE_SIZE, dropout_val=dropout, out_channels=1)
 
     if optim_type == 'SGD':
-        optim = SGD(lr=learning_rate, decay=1e-6, momentum=0.9, nesterov=True)
+        optim = SGD(learning_rate=learning_rate, momentum=0.9, nesterov=True)
     else:
         optim = AdamAccumulate(lr=learning_rate, accum_iters=20)
 
@@ -196,13 +201,13 @@ def train_single_model(fold_number):
 
     gen_train = batch_generator_train(fold_number, batch_size_train, preproc_input, augment=True)
     # gen_valid = batch_generator_train(valid_files, valid_answ, batch_size_valid, preproc_input, augment=False)
-    history = model.fit_generator(generator=gen_train,
+    history = model.fit(          gen_train,
                                   epochs=epochs,
                                   steps_per_epoch=steps_per_epoch,
                                   # validation_data=gen_valid,
                                   # validation_steps=validation_steps,
                                   verbose=1,
-                                  max_queue_size=10,
+                                  # max_queue_size=10,
                                   initial_epoch=0,
                                   callbacks=callbacks)
 

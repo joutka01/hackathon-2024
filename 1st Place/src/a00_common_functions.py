@@ -111,7 +111,7 @@ def save_history_figure(history, path, columns=('acc', 'val_acc')):
 
 def get_model_memory_usage(batch_size, model):
     import numpy as np
-    from keras import backend as K
+    from tensorflow.keras import backend as K
 
     shapes_mem_count = 0
     internal_model_mem_count = 0
@@ -120,7 +120,7 @@ def get_model_memory_usage(batch_size, model):
         if layer_type == 'Model':
             internal_model_mem_count += get_model_memory_usage(batch_size, l)
         single_layer_mem = 1
-        out_shape = l.output_shape
+        out_shape = l.output.shape
         if type(out_shape) is list:
             out_shape = out_shape[0]
         for s in out_shape:
@@ -155,7 +155,7 @@ def normalize_array(cube, new_max, new_min):
 
 def reduce_model(model_path):
     from kito import reduce_keras_model
-    from keras.models import load_model
+    from tensorflow.keras.models import load_model
 
     m = load_model(model_path)
     m_red = reduce_keras_model(m)
@@ -195,8 +195,8 @@ def read_video(video_path, frames=None):
 
 
 def merge_models(shape_size, models_list, out_model_file, avg=True):
-    from keras.models import load_model, save_model, Model
-    from keras.layers import Input, Average
+    from tensorflow.keras.models import load_model, save_model, Model
+    from tensorflow.keras.layers import Input, Average
 
     if not os.path.isfile(out_model_file):
         models = []
